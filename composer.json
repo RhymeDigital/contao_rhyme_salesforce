@@ -2,9 +2,10 @@
     "name": "rhymedigital/contao_rhyme_salesforce",
     "description": "A Contao CMS extension that integrates with Salesforce",
     "keywords": [
-    	"efg", 
     	"contao",
-    	"formdata"
+    	"salesforce",
+    	"crm",
+    	"force.com"
     ],
     "type": "contao-module",
     "license": "LGPL-3.0+",
