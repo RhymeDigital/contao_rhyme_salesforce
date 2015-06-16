@@ -61,14 +61,20 @@ class Callbacks extends \Backend
 			try
 			{
 				$objClient = Salesforce::getClient($objForm->salesforceAPIConfig);
-				$objResults = $objClient->describeSObjects(array($objForm->salesforceSObject));
-				$arrFields = $objResults[0]->getFields();
+				$arrConfig = $GLOBALS['TL_SOBJECTS'][$objForm->salesforceSObject];
+				$strClass = $arrConfig['class'];
 				
-				foreach ($arrFields as $field)
+				if (class_exists($strClass))
 				{
-					if (!$field->isCreateable()) continue;
+					$objResults = $objClient->describeSObjects(array($strClass::getType()));
+					$arrFields = $objResults[0]->getFields();
 					
-					$arrOptions[$field->getName()] = $field->getName();
+					foreach ($arrFields as $field)
+					{
+						if (!$field->isCreateable()) continue;
+						
+						$arrOptions[$field->getName()] = $field->getName();
+					}
 				}
 			}
 			catch (\Exception $e)
