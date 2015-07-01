@@ -76,6 +76,7 @@ class SendSalesforceData extends \Frontend
 	            	
 	            	if (is_array($arrSObjectConfig) && count($arrSObjectConfig) && $arrSObjectConfig['class'] && class_exists($arrSObjectConfig['class']))
 	            	{
+	            		$strMethod = 'create'; // Todo: Maybe we make this an option?  create, update, etc.
 	            		$strClass = $arrSObjectConfig['class'];
 	            		$arrData = static::getSalesforceFields($arrSubmitted, $objForm->id);
 	            		
@@ -88,18 +89,18 @@ class SendSalesforceData extends \Frontend
 				        if (isset($GLOBALS['TL_HOOKS']['preSendSalesforceData']) && is_array($GLOBALS['TL_HOOKS']['preSendSalesforceData'])) {
 				            foreach ($GLOBALS['TL_HOOKS']['preSendSalesforceData'] as $callback) {
 				                $objCallback = \System::importStatic($callback[0]);
-				                $arrData = $objCallback->$callback[1]($objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm);
+				                $arrData = $objCallback->$callback[1]($objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $strMethod);
 				            }
 				        }
 	            		
 	            		// Send the data to Salesforce
-		    			$response = $this->objClient->create(array($objSObject), $strClass::getType());
+		    			$response = $this->objClient->$strMethod(array($objSObject), $strClass::getType());
 	            		
 				        // !HOOK: execute custom actions after sending data to Salesforce
 				        if (isset($GLOBALS['TL_HOOKS']['postSendSalesforceData']) && is_array($GLOBALS['TL_HOOKS']['postSendSalesforceData'])) {
 				            foreach ($GLOBALS['TL_HOOKS']['postSendSalesforceData'] as $callback) {
 				                $objCallback = \System::importStatic($callback[0]);
-				                $objCallback->$callback[1]($response, $objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm);
+				                $objCallback->$callback[1]($response, $objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $strMethod);
 				            }
 				        }
 		    			
