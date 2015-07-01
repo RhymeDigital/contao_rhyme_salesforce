@@ -82,16 +82,16 @@ class SendSalesforceData extends \Frontend
 	            		
 	            		// todo: check mandatory fields for different object types
 	            		
-	            		// Create the Salesforce object
-		    			$objSObject = new $strClass($arrData);
-	            		
 				        // !HOOK: alter Salesforce data before sending
 				        if (isset($GLOBALS['TL_HOOKS']['preSendSalesforceData']) && is_array($GLOBALS['TL_HOOKS']['preSendSalesforceData'])) {
 				            foreach ($GLOBALS['TL_HOOKS']['preSendSalesforceData'] as $callback) {
 				                $objCallback = \System::importStatic($callback[0]);
-				                $arrData = $objCallback->$callback[1]($objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $strMethod);
+				                $arrData = $objCallback->$callback[1]($strClass, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $this->objClient, $strMethod);
 				            }
 				        }
+	            		
+	            		// Create the Salesforce object
+		    			$objSObject = new $strClass($arrData);
 	            		
 	            		// Send the data to Salesforce
 		    			$response = $this->objClient->$strMethod(array($objSObject), $strClass::getType());
@@ -100,13 +100,13 @@ class SendSalesforceData extends \Frontend
 				        if (isset($GLOBALS['TL_HOOKS']['postSendSalesforceData']) && is_array($GLOBALS['TL_HOOKS']['postSendSalesforceData'])) {
 				            foreach ($GLOBALS['TL_HOOKS']['postSendSalesforceData'] as $callback) {
 				                $objCallback = \System::importStatic($callback[0]);
-				                $objCallback->$callback[1]($response, $objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $strMethod);
+				                $objCallback->$callback[1]($response, $objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $this->objClient, $strMethod);
 				            }
 				        }
 		    			
 		    			if ($response[0]->isSuccess())
 		    			{
-		    				\System::log('Salesforce '.$objForm->salesforceSObject.' (ID '.$response[0]->getId().') successfully created.', __METHOD__, TL_FORMS);
+		    				\System::log('Salesforce '.$objForm->salesforceSObject.' (ID '.$response[0]->getId().') successful.', __METHOD__, TL_FORMS);
 		    			}
 		    			else
 		    			{
