@@ -184,7 +184,7 @@ class Client extends Phpforce_Client
                     break;
             }
 
-            $sObject->$field = $value;
+            $sObject->{$field} = $value;
         }
 
         return $sObject;

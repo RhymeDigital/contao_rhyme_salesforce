@@ -67,7 +67,8 @@ class Callbacks extends \Backend
 				if (class_exists($strClass))
 				{
 					$objResults = $objClient->describeSObjects(array($strClass::getType()));
-					$arrFields = $objResults[0]->getFields();
+					$objResult = $objResults[0];
+					$arrFields = $objResult->getFields();
 					
 					foreach ($arrFields as $field)
 					{
