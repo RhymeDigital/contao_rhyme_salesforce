@@ -43,14 +43,14 @@ class SObject
 				
 				foreach ($arrProperties as $property=>$value)
 				{
-					$this->$property = is_string($value) ? str_replace('&', '+', $value) : $value;
+					$this->{$property} = is_string($value) ? str_replace('&', '+', $value) : $value;
 				}
 			}
 			elseif (is_array($varData))
 			{
 				foreach ($varData as $property=>$value)
 				{
-					$this->$property = is_string($value) ? str_replace('&', '+', $value) : $value;
+					$this->{$property} = is_string($value) ? str_replace('&', '+', $value) : $value;
 				}
 			}
 		}
@@ -112,11 +112,11 @@ class SObject
 							{
 								if (is_string($anyval))
 								{
-									$objSObject->$anykey = static::getAllPropertiesFromAnyString($anyval);
+									$objSObject->{$anykey} = static::getAllPropertiesFromAnyString($anyval);
 								}
 								elseif (is_object($anyval))
 								{
-									$objSObject->$anykey = static::parsePhpforceObject($anyval);
+									$objSObject->{$anykey} = static::parsePhpforceObject($anyval);
 								}
 							}
 							// Regular return values have keys that are integers
@@ -130,7 +130,7 @@ class SObject
 					break;
 					
 				default:
-					$objSObject->$key = $val;
+					$objSObject->{$key} = $val;
 					break;
 			}
 		}
@@ -165,7 +165,7 @@ class SObject
 	    	
 	    	if (trim($strField))
 	    	{
-			    $objSObject->$strField = static::getPropertyValueFromAnyString($strAny, $strField);
+			    $objSObject->{$strField} = static::getPropertyValueFromAnyString($strAny, $strField);
 	    	}
 	    }
 		

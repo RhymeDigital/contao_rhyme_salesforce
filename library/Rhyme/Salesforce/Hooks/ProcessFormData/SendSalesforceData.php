@@ -86,7 +86,7 @@ class SendSalesforceData extends \Frontend
 				        if (isset($GLOBALS['TL_HOOKS']['preSendSalesforceData']) && is_array($GLOBALS['TL_HOOKS']['preSendSalesforceData'])) {
 				            foreach ($GLOBALS['TL_HOOKS']['preSendSalesforceData'] as $callback) {
 				                $objCallback = \System::importStatic($callback[0]);
-				                $arrData = $objCallback->$callback[1]($strClass, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $this->objClient, $strMethod);
+				                $arrData = $objCallback->{$callback[1]}($strClass, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $this->objClient, $strMethod);
 				            }
 				        }
 	            		
@@ -100,7 +100,7 @@ class SendSalesforceData extends \Frontend
 				        if (isset($GLOBALS['TL_HOOKS']['postSendSalesforceData']) && is_array($GLOBALS['TL_HOOKS']['postSendSalesforceData'])) {
 				            foreach ($GLOBALS['TL_HOOKS']['postSendSalesforceData'] as $callback) {
 				                $objCallback = \System::importStatic($callback[0]);
-				                $objCallback->$callback[1]($response, $objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $this->objClient, $strMethod);
+				                $objCallback->{$callback[1]}($response, $objSObject, $arrData, $arrSubmitted, $arrFormData, $arrFiles, $arrLabels, $objForm, $this->objClient, $strMethod);
 				            }
 				        }
 		    			
