@@ -19,3 +19,4 @@ $GLOBALS['TL_LANG']['MSC']['salesforceObjectCase']					= 'Case';
 $GLOBALS['TL_LANG']['MSC']['salesforceObjectContact']				= 'Contact';
 $GLOBALS['TL_LANG']['MSC']['salesforceObjectLead']					= 'Lead';
 $GLOBALS['TL_LANG']['MSC']['salesforceObjectUser']					= 'User';
+$GLOBALS['TL_LANG']['MSC']['salesforceObjectProfile']			    = 'Profile';

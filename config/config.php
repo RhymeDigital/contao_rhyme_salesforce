@@ -64,3 +64,8 @@ $GLOBALS['TL_SOBJECTS']['User'] = array
 	'class'			=> 'Rhyme\Salesforce\SObject\User',
 	'label'			=> &$GLOBALS['TL_LANG']['MSC']['salesforceObjectUser'],
 );
+$GLOBALS['TL_SOBJECTS']['Profile'] = array
+(
+    'class'			=> 'Rhyme\Salesforce\SObject\Profile',
+    'label'			=> &$GLOBALS['TL_LANG']['MSC']['salesforceObjectProfile'],
+);
