@@ -36,10 +36,5 @@
                 "": "system/modules/salesforce"
             }
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "config": {
-        "preferred-install": "dist"
     }
 }
